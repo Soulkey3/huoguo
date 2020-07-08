@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jsut.huoguo.dao.ProductDao">
+
+    <select id="findAll" resultType="cn.jsut.huoguo.pojo.Product">
+        select * from product ORDER BY product_priority DESC
+    </select>
+
+    <select id="findById" resultType="cn.jsut.huoguo.pojo.Product" parameterType="int">
+        select * from product WHERE product_id=${productId}
+    </select>
+
+    <insert id="addProduct"  useGeneratedKeys="true" keyProperty="productId" keyColumn="product_id">
+        INSERT INTO
+        product(product_name,product_price,img_addr,category,
+        product_desc,product_point,product_priority)
+        VALUES
+        (#{productName},#{productPrice},#{imgAddr},
+        #{category},#{productDesc},#{productPoint},
+        #{productPriority})
+    </insert>
+
+    <delete id="deleteProductById" parameterType="int">
+        DELETE FROM product WHERE product_id=#{productId}
+    </delete>
+
+    <update id="updateProduct" parameterType="cn.jsut.huoguo.pojo.Product" useGeneratedKeys="true" keyColumn="product_id">
+        UPDATE product SET
+        product_name=#{product.productName},product_price=#{product.productPrice},img_addr=#{product.imgAddr},
+        category=#{product.category},product_desc=#{product.productDesc},product_point=#{product.productPoint},
+        product_priority=#{product.productPriority}
+        WHERE product_id=#{product.productId}
+
+    </update>
+    
+    <select id="findProductByCategory" parameterType="string" resultType="cn.jsut.huoguo.pojo.Product">
+        SELECT *
+        FROM product
+        WHERE category=#{category}
+    </select>
+
+
+
+</mapper>

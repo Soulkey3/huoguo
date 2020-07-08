@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商铺盘点</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <style>
+        .row-productbuycheck {
+            border: 1px solid #999;
+            padding: .5rem;
+            border-bottom: none;
+        }
+
+        .row-productbuycheck:last-child {
+            border-bottom: 1px solid #999;
+        }
+
+        .productbuycheck-time {
+            white-space: nowrap;
+            overflow-x: scroll;
+        }
+    </style>
+</head>
+<body>
+<header class="bar bar-nav">
+    <h1 class="title">销售盘点</h1>
+</header>
+<input type="hidden" id="food" th:value="${food}">
+<input type="hidden" id="meat" th:value="${meat}">
+<input type="hidden" id="vegatable" th:value="${vegatable}">
+<input type="hidden" id="bean" th:value="${bean}">
+<input type="hidden" id="hotpot" th:value="${hotpot}">
+<input type="hidden" id="drink" th:value="${drink}">
+<!--<div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+        <label class="icon icon-search" for="search"></label> <input
+            type="search" id='search' placeholder='输入关键字...'/>
+    </div>
+</div>-->
+<div class="content">
+    <div class="content-block">
+        <!--Echarts展示-->
+        <div id="chart" style="width: 100%; height: 300px;"></div>
+
+        <!--各类最高销量-->
+        <div class="row row-productbuycheck">
+            <div class="col-33" style="font-weight: bold">锅底最高销量</div>
+            <div class="col-33" style="color: red" th:text="${hotpots.get(0).productName}"></div>
+            <div class="col-33" style="color: red" th:text="${hotpots.get(0).count}+'份'"></div>
+        </div>
+        <div class="row row-productbuycheck">
+            <div class="col-33" style="font-weight: bold">肉类最高销量</div>
+            <div class="col-33" style="color: red" th:text="${meats.get(0).productName}"></div>
+            <div class="col-33" style="color: red" th:text="${meats.get(0).count}+'份'"></div>
+        </div>
+
+        <div class="row row-productbuycheck">
+            <div class="col-33" style="font-weight: bold">熟菜最高销量</div>
+            <div class="col-33" style="color: red" th:text="${vegatables.get(0).productName}"></div>
+            <div class="col-33" style="color: red" th:text="${vegatables.get(0).count}+'份'"></div>
+        </div>
+        <div class="row row-productbuycheck">
+            <div class="col-33" style="font-weight: bold">饮料最高销量</div>
+            <div class="col-33" style="color: red" th:text="${drinks.get(0).productName}"></div>
+            <div class="col-33" style="color: red" th:text="${drinks.get(0).count}+'份'"></div>
+        </div>
+        <div class="row row-productbuycheck">
+            <div class="col-33" style="font-weight: bold">熟菜最高销量</div>
+            <div class="col-33" style="color: red" th:text="${foods.get(0).productName}"></div>
+            <div class="col-33" style="color: red" th:text="${foods.get(0).count}+'份'"></div>
+        </div>
+        <div class="row row-productbuycheck">
+            <div class="col-33" style="font-weight: bold">豆制品最高销量</div>
+            <div class="col-33" style="color: red" th:text="${beans.get(0).productName}"></div>
+            <div class="col-33" style="color: red" th:text="${beans.get(0).count}+'份'"></div>
+        </div>
+        <div class="row row-productbuycheck">
+            <div class="col-50" style="font-weight: bold">总销量</div>
+            <div class="col-50" style="color: red" th:text="${amount}+'元'"></div>
+        </div>
+
+
+    </div>
+    <div class="content-block">
+        <div class="row">
+            <div class="col-100">
+                <a href="/toshopadmin"
+                   class="button button-big button-fill button-danger">返回</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
+
+
+<script type="text/javascript">
+
+    //获取每个种类的销售额
+    var food = $("#food").val();//熟菜
+    var meat = $("#meat").val();//肉类
+    var bean = $("#bean").val();//豆制品
+    var hotpot = $("#hotpot").val();//锅底
+    var vegatable = $("#vegatable").val();//蔬菜
+    var drink = $("#drink").val();//饮料
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chart'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '分类销售额（￥）'
+        },
+        tooltip: {},
+        legend: {
+            data: ['销售额']
+        },
+        xAxis: {
+            data: ["锅底", "肉类", "蔬菜", "饮料", "熟菜", "豆制品"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销售额',
+            type: 'bar',
+            data: [hotpot, meat, vegatable, drink, food, bean]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

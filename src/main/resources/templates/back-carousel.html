@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>更改轮播图</title>
+    <meta name="description"
+          content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="阿里巴巴国际UED前端">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+
+    <link rel="apple-touch-icon-precomposed"
+          href="/assets/img/apple-touch-icon-114x114.png">
+
+</head>
+<body>
+<div class="page-group">
+    <div id="page-label-input" class="page">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left back"
+               href="/demos/form"> <span class="icon icon-left"></span> 返回
+            </a>
+            <h1 class="title">更改轮播图</h1>
+        </header>
+        <div class="content">
+            <form action="/admin/updateCarousel" method="post" enctype="multipart/form-data">
+            <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                        <!-- 轮播图片1 -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">轮播图片1</div>
+                                    <div class="item-input">
+                                        <input type="file" name="file1" id="file1">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 轮播图片1  -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">轮播图片1</div>
+                                    <div class="item-input">
+                                        <input type="file" name="file2" id="file2">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 轮播图片1  -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">轮播图片1</div>
+                                    <div class="item-input">
+                                        <input type="file" name="file3" id="file3">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+            </div>
+
+
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50">
+                            <a href="#" onClick="javascript :history.back(-1);"
+                               class="button button-big button-fill button-success"
+                            >返回</a>
+                    </div>
+                    <div class="col-50">
+                        <input type="submit" class="button button-big button-fill button-success" onclick="return check()"></input>
+                    </div>
+                </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<!-- 解决 Formart is not a function -->
+<script src="//github.com/jacwright/date.format.git"></script>
+
+<script>
+    function check() {
+        var file1 = $("#file1").val();
+        var file2 = $("#file2").val();
+        var file3 = $("#file3").val();
+        if (file1==''||file2==''||file3==''){
+            alert("图片不全！");
+            return(false);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>河底捞</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+<!-- page 容器 -->
+<div class="page" style="background-image: url('../static/img/background.jpg');background-repeat: no-repeat;background-size: cover;width: 100%;height: 100%">
+    <!--！！！隐藏表格用于将购物车数据打包成json，传递后台写入订单表格-->
+    <form th:action="@{/order/addPre}" method="post" id="carForm">
+        <input type="hidden" name="orderInfoStr" id="orderInfoStr"/>
+        <input type="hidden" name="useDiscount" id="useDiscount" value="false"/>
+    </form>
+
+    <!-- 标题栏 -->
+    <div style="float: top" >
+        <p style="font-weight: bold;font-family: Century;text-align: center ;color: yellow;letter-spacing: 8px">菜单</p>
+    </div>
+    <!-- 下部导航栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item external active" href="/toindex">
+            <span class="icon icon-home"></span>
+            <span class="tab-label">点餐</span>
+        </a>
+    </nav>
+
+    <!-- 这里是购物车商品页面区 -->
+    <div class="content" style="margin-top: 100px ">
+
+        <div class="content-block">
+            <div class="row row-product" style="color: yellow;font-weight: bold">
+                <div class="col-25" >菜品名</div>
+                <div class="col-25">数量</div>
+                <div class="col-25">单价</div>
+            </div>
+            <!--显示菜单内容区域-->
+            <div class="list-block">
+                <ul th:if="${shopcarVos==null}">
+                    <p>购物车为空</p>
+                </ul>
+
+                <ul class="list-container" th:each="shopcarVo:${shopcarVos}" th:if="${shopcarVos!=null}">
+                    <div class="row">
+                        <div class="col-25" th:text="${shopcarVo.productName}">菜名</div>
+                        <div class="col-25" th:text="${shopcarVo.count}">数量</div>
+                        <div class="col-25" th:text="${shopcarVo.productPrice}">单价</div>
+                        <div class="col-25">
+                            <a th:href="@{'/front/deleteProduct/'+${shopcarVo.shopcarId}}">移除</a>
+                        </div>
+                    </div>
+                </ul>
+
+            </div>
+
+                <!--显示总价，还有总积分-->
+            <div style="float: right;background-color: white">
+                <span style="font-weight: bolder">总价：</span><span th:text="${shopcarVos.get(0).getTotalPrice()}"></span>元<br>
+                <span style="font-weight: bolder">可获总积分：</span><span th:text="${shopcarVos.get(0).getTotalPoint()}"></span><br>
+                <span id="goDiscount" class="button button-success">使用积分折扣</span>
+                <div id="goStatement" style="background-color: red;color:white;height: 60px;display: flex;justify-content: center;align-items: center">
+                    <div>去结算</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+<script th:inline="javascript">
+    $(function () {
+        //去结算
+        $("#goStatement").click(function () {
+            let arr=[[${shopcarVos}]];
+            //将购物车数组变为json字符串传到后端
+            $("#orderInfoStr").val(JSON.stringify(arr));
+            //表单提交操作
+            $("#carForm").submit();
+        });
+        //使用积分
+        $("#goDiscount").click(function () {
+            if ($("#useDiscount").val()=="false"){
+                $.toast("使用积分！");
+                $('#useDiscount').val("true");
+            }else {
+                $.toast("不使用积分！");
+                $('#useDiscount').val("false");
+            }
+        });
+
+        //若点击"我的"，则显示侧栏
+        $('#me').click(function () {
+            $.openPanel('#panel-right-demo');
+        });
+    });
+</script>
+
+</body>
+</html>

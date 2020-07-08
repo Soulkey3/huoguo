@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>河底捞</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+<div class="page-group">
+    <script>
+        $(function () {
+
+            //设定轮播图轮换时间为3秒
+            $(".swiper-container").swiper({
+                autoplay: 3000,
+                //用户对轮播图进行操作时，是否自动停止autoplay
+                autoplayDisableOnInteraction: false
+            });
+            //若点击"我的"，则显示侧栏
+            $('#me').click(function () {
+                $.openPanel('#panel-right-demo');
+            });
+        });
+    </script>
+    <div class="page">
+        <header class="bar bar-nav">
+            <img style="float: left" src="../static/img/logo.jpg" height="50" width="120"/>
+            <h1 class="title" style="font-family: 'Adobe 黑体 Std R';letter-spacing: 5px">河底捞</h1>
+        </header>
+
+        <nav class="bar bar-tab">
+            <a class="tab-item active" href="#">
+                <span class="icon icon-home"></span>
+                <span class="tab-label">首页</span>
+            </a>
+
+            <a class="tab-item external"  onclick="register()" >
+                <span class="icon icon-cart"></span>
+                <span class="tab-label">菜单</span>
+            </a>
+
+            <a class="tab-item" href="#" id='me' onclick="register()">
+                <span class="icon icon-me"></span>
+                <span class="tab-label">我</span>
+            </a>
+        </nav>
+        <div class="content">
+            <!-- 这里是轮播图展示区 -->
+            <div class="swiper-container index-banner" data-space-between='10'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide img-wrap">
+                        <img class="banner-img"
+                             th:src="@{'/static/img/'+${session.carousel.carouselImg1}}"
+                             alt="">
+                    </div>
+                    <div class="swiper-slide img-wrap">
+                        <img class="banner-img"
+                             th:src="@{'/static/img/'+${session.carousel.carouselImg2}}"
+                             alt="">
+                    </div>
+                    <div class="swiper-slide img-wrap">
+                        <img class="banner-img"
+                             th:src="@{'/static/img/'+${session.carousel.carouselImg3}}"
+                             alt="">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <!-- 全类查询区 -->
+            <div class='total-shop-button'>
+                <a href="#" external>菜品分类</a>
+            </div>
+            <!-- 一级类别展示区域 -->
+            <div class="row">
+                <div class="col-50 shop-classify">
+                    <div class='shop-classify-img-warp'>
+                        <img class='shop-img'  src="../static/img/hongyou.jpg"/>
+                    </div>
+                    <div class='word'>
+                        <p class='shop-title'><a onclick="register()">锅底</a></p>
+                        <p class='shop-desc'>番茄锅底，牛油锅底</p>
+                    </div>
+                </div>
+
+                <div class="col-50 shop-classify">
+                    <div class='shop-classify-img-warp'>
+                        <!--<img class='shop-img' src="static/index/display13.png">-->
+                        <img class='shop-img'  src="../static/img/roulei.jpg"/>
+                    </div>
+                    <div class='word'>
+                        <p class='shop-title'><a onclick="register()">肉类</a></p>
+                        <p class='shop-desc'>精品肥牛，火锅牛排，毛肚</p>
+                    </div>
+                </div>
+
+                <div class="col-50 shop-classify">
+                    <div class='shop-classify-img-warp'>
+                        <!--<img class='shop-img' src="static/index/display13.png">-->
+                        <img class='shop-img'  src="../static/img/shucai.jpg"/>
+
+                    </div>
+                    <div class='word'>
+                        <p class='shop-title'><a onclick="register()">蔬菜</a></p>
+                        <p class='shop-desc'>娃娃菜，菠菜，冬瓜</p>
+                    </div>
+                </div>
+
+                <div class="col-50 shop-classify">
+                    <div class='shop-classify-img-warp'>
+                        <img class='shop-img'  src="../static/img/yinliao.jpg"/>
+                    </div>
+                    <div class='word'>
+                        <p class='shop-title'><a onclick="register()">饮料</a></p>
+                        <p class='shop-desc'>酸梅汁，可乐，啤酒</p>
+                    </div>
+                </div>
+
+                <div class="col-50 shop-classify">
+                    <div class='shop-classify-img-warp'>
+                        <img class='shop-img'  src="../static/img/shucai2.jpg"/>
+                    </div>
+                    <div class='word'>
+                        <p class='shop-title'><a onclick="register()">熟菜</a></p>
+                        <p class='shop-desc'>酥肉，茴香小油条，蛋炒饭</p>
+                    </div>
+                </div>
+
+                <div class="col-50 shop-classify">
+                    <div class='shop-classify-img-warp'>
+                        <img class='shop-img'  src="../static/img/doufu.jpg"/>
+                    </div>
+                    <div class='word'>
+                        <p class='shop-title'><a onclick="register()">豆制品</a></p>
+                        <p class='shop-desc'>油豆腐，冻豆腐，豆腐皮</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--侧边栏  -->
+    <div class="panel-overlay"></div>
+    <div class="panel panel-right panel-reveal" id="panel-right-demo">
+        <div class="content-block">
+            <span>你好，请先登录</span>
+            <!-- Click on link with "close-panel" class will close panel -->
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+<script>
+    $(function () {
+
+        //设定轮播图轮换时间为3秒
+        $(".swiper-container").swiper({
+            autoplay: 3000,
+            //用户对轮播图进行操作时，是否自动停止autoplay
+            autoplayDisableOnInteraction: false
+        });
+        //若点击"我的"，则显示侧栏
+        $('#me').click(function () {
+            $.openPanel('#panel-right-demo');
+        });
+    });
+
+    function register(){
+        alert("请先登录");
+        window.location.href="http://localhost/tologin";
+    }
+</script>
+
+</body>
+</html>

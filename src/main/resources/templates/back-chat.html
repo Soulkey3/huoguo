@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>联系消费者</title>
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+</head>
+<style>
+    #message{
+        width: 100%;
+        height: 70%;
+        background-color: darkgray;
+    }
+
+    #inputVal{
+        width: 100%;
+        height: 30%;
+    }
+    input{
+        width: 100%;
+    }
+</style>
+<body style="width: 100%;height: 100%;">
+<img style="width:100%;height:100%;position: absolute;z-index: -1;" src="../static/img/back4.jpg">
+<h1><a href="/toshopadmin"><span class="icon icon-left"></span></a></h1>
+<div style="display: flex;justify-content: center;align-items: center;">
+    <div style="width: 400px;height: 500px;box-shadow: 5px 5px 5px 5px lightskyblue">
+
+        <div id="message" >
+
+        </div>
+        <div id="inputVal">
+            <input type="text" name="text" style="height: 95%">
+            <button onclick="send()"style="float: right">发送</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var messageEl=document.getElementById("message");
+    var inputEl=document.getElementsByTagName("input")[0];
+
+    var websocket=null;
+    if('WebSocket' in window){
+        websocket=new WebSocket("ws:localhost:80/websocket/Administrator");
+    }else {
+        alert("浏览器不支持");
+
+    }
+    websocket.onopen=function () {
+        console.log("webscoket已经连接成功");
+        addMessage("webscoket已经连接成功");
+
+    };
+    websocket.onclose=function () {
+        console.log("webscoket连接失败");
+        addMessage("webscoket连接失败");
+    };
+    websocket.onmessage=function (event) {
+        addMessage(event.data);
+    };
+    websocket.onerror=function () {
+        console.log("webscoket连接失败");
+        addMessage("webscoket连接失败");
+    };
+    function addMessage(message) {
+        messageEl.innerHTML+=message+"</br>";
+    }
+
+    function send() {
+        websocket.send("Administrator:"+inputEl.value);
+        messageEl.innerHTML+="我:"+inputEl.value+"</br>";
+        document.getElementById("text").value="";
+    }
+
+
+</script>
+
+</body>
+</html>

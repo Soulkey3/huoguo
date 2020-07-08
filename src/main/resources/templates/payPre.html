@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>支付</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<style>
+    .mb {
+        margin-bottom: .5rem;
+    }
+</style>
+
+</head>
+<body>
+<header class="bar bar-nav">
+    <h1 class="title">支付收银台</h1>
+</header>
+<div class="content">
+
+    <!--隐藏表格，将订单展示页面数据传回后台，创建支付-->
+    <form id="payForm" th:action="@{/order/create}" method="post">
+
+        <input type="hidden" name="allCost" th:value="${order.actualPayment}"/><!--实际付款-->
+        <input type="hidden" name="orderId" th:value="${order.orderId}"/><!--订单id-->
+
+    <div class="content-block">
+
+        <div class="row">
+
+            <div class="col-100 mb" style="margin: 10px 10px">
+                <div style="background-color: green;height: 300px;display: flex;justify-content: center;align-items: center">
+                    <h1 style="font-weight: bold;color: white;font-size: 50px" th:text="${order.actualPayment}+'¥'"></h1>
+                </div>
+            </div>
+
+            <div style="margin: 8px 10px">
+                <img style="float: left;margin-left: 10px" src="../static/img/alipay.jpg" height="60" width="200"/>
+                <input style="margin-left: 100px" name="payType" type="radio" checked value="支付宝" id="aliPay" /><!--付款方式-->
+            </div>
+
+            <div id="goPay" class="col-100 mb" style="float: bottom">
+                <div style="font-weight: bold"
+                   class="button button-big button-fill button-danger">立即支付
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </form>
+</div>
+
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script src="//github.com/jacwright/date.format.git"></script>
+
+<script>
+    $(function () {
+        $("#goPay").click(function () {
+            $("#payForm").submit();
+        });
+    });
+
+</script>
+
+</body>
+</html>

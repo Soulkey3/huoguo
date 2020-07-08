@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>菜单列表</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../static/css/shoplist.css">
+
+
+    <script>
+
+    </script>
+</head>
+<body>
+<header class="bar bar-nav">
+    <h1 class="title">菜单列表</h1>
+</header>
+<div class="content">
+    <div class="content-block">
+        <p>
+            你好,管理员
+        </p>
+        <div class="row row-product">
+            <div class="col-33">菜品名</div>
+            <div class="col-20">价格</div>
+            <div class="col-40">操作</div>
+        </div>
+
+        <div class="row product-wrap" style="padding-left: 15px">
+            <!--菜单-->
+            <div class="row row-product" th:each="product:${products}">
+                <div class="col-33" th:text="${product.productName}"></div>
+                <div class="col-20" th:text="${product.productPrice}"></div>
+                <div class="col-40" >
+                    <a th:href="@{'/admin/findById/'+${product.productId}}">查看</a>
+                    <a id="delete" onclick="return confirmAct();"  th:href="@{'/admin/deleteproductbyid?productid='+${product.productId}}">下架</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <div class="row">
+            <div class="col-50">
+                <a href="/toshopadmin" id="log-out" usertype="2"
+                   class="button button-big button-fill button-danger">返回</a>
+            </div>
+            <div class="col-50">
+                <a href="/toaddproduct"
+                   class="button button-big button-fill button-success">添加</a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+<script>
+    function confirmAct() {
+        if (confirm("确认下架商品？")){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+</script>
+
+
+</body>
+</html>

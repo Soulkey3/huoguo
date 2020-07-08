@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jsut.huoguo.dao.UserDao">
+
+
+
+    <insert id="addUser"   useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id" >
+        INSERT INTO
+        user(username,password,birthday,email)
+        VALUES
+        (#{username},#{password},#{birthday},
+        #{email})
+    </insert>
+
+
+
+  <!--  <update id="updateProduct" parameterType="cn.jsut.huoguo.pojo.Product" useGeneratedKeys="true" keyColumn="product_id">
+        UPDATE product SET
+        product_name=#{product.productName},product_price=#{product.productPrice},img_addr=#{product.imgAddr},
+        category=#{product.category},product_desc=#{product.productDesc},product_point=#{product.productPoint},
+        product_priority=#{product.productPriority}
+        WHERE product_id=#{product.productId}
+
+    </update>-->
+    
+
+
+</mapper>

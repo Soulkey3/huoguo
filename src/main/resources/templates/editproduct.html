@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>菜品详情</title>
+    <meta name="description"
+          content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="阿里巴巴国际UED前端">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Google Web Fonts -->
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet"
+          href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+
+    <link rel="apple-touch-icon-precomposed"
+          href="/assets/img/apple-touch-icon-114x114.png">
+
+</head>
+<body>
+<div class="page-group">
+    <div id="page-label-input" class="page">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left back"
+               href="/demos/form"> <span class="icon icon-left"></span> 返回
+            </a>
+            <h1 class="title">菜品详情</h1>
+        </header>
+        <div class="content">
+            <form action="/product/updateproduct" method="post">
+                <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                        <!--菜品ID 隐藏-->
+                        <li >
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">菜品ID</div>
+                                    <div class="item-input">
+                                        <input hidden="hidden"  type="text" name="productName" th:value="${product.productId}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!--菜品名称-->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">菜品名称</div>
+                                    <div class="item-input">
+                                        <input  type="text" name="productName" th:value="${product.productName}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 商品价格-->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">商品价格</div>
+                                    <div class="item-input">
+                                        <input type="text" name="productPrice" th:value="${product.productPrice}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 商品图片 -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">商品图片</div>
+                                    <div class="item-input">
+                                        <input type="text" name="imgAddr" th:value="${product.imgAddr}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 商品类别 -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">商品类别</div>
+                                    <div class="item-input">
+                                        <input readonly type="text" name="category" th:value="${product.category}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 商品简介 -->
+                        <li class="align-top">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">商品简介</div>
+                                    <div class="item-input">
+                                        <input type="text" name="productDesc" th:value="${product.productDesc}"></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- 缩略图 上传控件 -->
+                        <!--<li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">缩略图</div>
+                                    <div class="item-input">
+                                        <input type="file" id="shop-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>-->
+
+                        <!-- 商品积分 -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">商品积分</div>
+                                    <div class="item-input">
+                                        <input type="text" name="productPoint" th:value="${product.productPoint}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 商品优先级 -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">商品优先级</div>
+                                    <div class="item-input">
+                                        <input type="text" name="productPriority" th:value="${product.productPriority}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <div class="row">
+                        <div class="col-50">
+                            <a href="#" onClick="javascript :history.back(-1);" class="button button-big button-fill button-success"
+                               id="submit">返回</a>
+                        </div>
+                        <div class="col-50">
+                            <input type="submit" value="修改" class="button button-big button-fill button-success"></input>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<script type='text/javascript'
+        src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript'
+        src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<!-- 解决 Formart is not a function -->
+<script src="//github.com/jacwright/date.format.git"></script>
+</body>
+</html>
